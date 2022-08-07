@@ -1,0 +1,24 @@
+.form-control,
+.form-control:focus,
+.btn {
+    border-radius: 50px;
+    background: #e0e0e0;
+}
+
+.assignButton {
+    border-radius: 50px;
+    background: gray;
+    color: white;
+    margin-left: 17em;
+    font-weight: 500;
+    width: 5em;
+}
+
+table,
+tr,
+td {
+    border: 1px solid;
+    text-align: center;
+    vertical-align: bottom;
+    padding: 15px;
+}
