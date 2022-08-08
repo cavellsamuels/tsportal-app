@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     </head>
 
-    @auth('admin')
+    {{-- @auth('admin')
 
         <head>
             <title>Admin Dashboard</title>
@@ -31,12 +31,12 @@
                 </div>
             </div>
         </div>
-    @endauth
+    @endauth --}}
 
     @auth('teacher')
 
         <head>
-            <title>Teacher Dashboard</title>
+            <title> Teacher Dashboard </title>
             <style></style>
         </head>
 
@@ -45,11 +45,12 @@
                 <div class="row">
                     <div class="col-6 offset-3">
                         <h1 class="text-center m-5">Teacher Dashboard</h1>
+
                         @if (\Session::has('error'))
                             <div class="alert alert-danger">{{ \Session::get('error') }}</div>
                         @endif
 
-                        <form method="POST" action="{{ route('files.upload') }}">
+                        <form method="POST" action="{{ route('file.upload') }}" enctype="multipart/form-data">
                             @csrf
 
                             <select class="form-control" name="studentname" id="">
@@ -61,7 +62,7 @@
 
                             <br><br>
 
-                            <input class="form-control mb-5" type="file" name="file">
+                            <input class="form-control mb-5" value="{{ $file->id }}" type="file" name="file" class="file">
 
                             <button class="assignButton" type="submit"> Assign </button>
                         </form>
@@ -89,26 +90,25 @@
                         <div class="alert alert-danger">{{ \Session::get('error') }}</div>
                     @endif
 
+
                     <table>
-                        <th class="pr-10">File</th>
-                        <th class="pr-10">Assigned By</th>
-                        <th class="pr-10">Comment</th>
-                        <th>Download</th>
                         <tr>
-                            {{-- @foreach ($files as $file)
-                            <td> {{ $file->name }}</td>
-                            <td> {{ $file->assigned }}</td>
-                            <td> {{ $file->comment }}</td>
-                            <td> <button> Download </button> </td>
-                            @endforeach --}}
-
-                            <td> FILENAME </td>
-                            <td> ASSIGNED BY </td>
-                            <td> COMMENT </td>
-                            <td><button> Download </button></td>
-
-
+                            <th class="underline">File</th>
+                            <th class="underline">Assigned By</th>
+                            <th></th>
                         </tr>
+
+                        @foreach (auth()->user()->files as $file)
+                            @csrf
+
+                            <form action="{{ route('file.download', [$file->id]) }}">
+                                <tr>
+                                    <td>{{ $file->name }} </td>
+                                    <td>{{ $file->uploaded_by }}</td>
+                                    <td> <button> Download </button> </td>
+                                </tr>
+                            </form>
+                        @endforeach
                     </table>
                 </div>
             </div>

@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('path')->unique();
             $table->foreignId('uploaded_by')->on('users');
+            $table->integer('file_size');
             $table->timestamps();
         });
     }

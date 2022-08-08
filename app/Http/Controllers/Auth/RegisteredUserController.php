@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterUserRequest;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
@@ -14,9 +13,7 @@ class RegisteredUserController extends Controller
 {
     public function create()
     {
-        $roles = Role::all();
-
-        return view('auth.register', compact('roles'));
+        return view('auth.register');
     }
 
     public function store(RegisterUserRequest $request)
@@ -30,17 +27,13 @@ class RegisteredUserController extends Controller
         ]);
 
         $inputtedRole = $request->role;
-
+        
         if ($inputtedRole == 1) {
-            Auth::guard('admin')->attempt($request->only('email', 'password'));
+            Auth::guard('student')->attempt($request->only('email', 'password'));
         }
 
         if ($inputtedRole == 2) {
             Auth::guard('teacher')->attempt($request->only('email', 'password'));
-        }
-
-        if ($inputtedRole == 3) {
-            Auth::guard('student')->attempt($request->only('email', 'password'));
         }
 
         event(new Registered($user));

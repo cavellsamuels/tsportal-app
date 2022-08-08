@@ -52,9 +52,8 @@
 
             <div class="mt-4 w-full">
                 <select class="form-control" id="role" name="role" placeholder="User Role">
-                    @foreach ($roles as $role)
-                        <option value="{{ $role->id }}"> {{ $role->name }} </option>
-                    @endforeach
+                    <option value="1"> Student </option>
+                    <option value="2"> Teacher </option>
                 </select>
             </div>
 
