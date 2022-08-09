@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Teacher extends Model
+class FileUser extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-
-    protected $guard = 'teacher';
+    protected $fillable =
+    [
+        'user_id',
+        'file_id',
+    ];
 }

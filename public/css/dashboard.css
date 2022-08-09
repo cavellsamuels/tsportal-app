@@ -1,3 +1,21 @@
+.container {
+    height: 25em;
+    width: max-content;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.assignButton {
+    border-radius: 50px;
+    background: gray;
+    color: white;
+    font-weight: 500;
+    height: 2em;
+    width: 5em;
+    font-size: large;
+}
+
 .form-control,
 .form-control:focus,
 .btn {
@@ -5,20 +23,35 @@
     background: #e0e0e0;
 }
 
-.assignButton {
-    border-radius: 50px;
-    background: gray;
-    color: white;
-    margin-left: 17em;
-    font-weight: 500;
-    width: 5em;
-}
-
 table,
 tr,
 td {
     border: 1px solid;
+    border-color: black;
     text-align: center;
     vertical-align: bottom;
     padding: 15px;
+    background-color: lightgray;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+th {
+    border: 1px solid;
+    border-color: black;
+    text-align: center;
+    vertical-align: bottom;
+    padding: 15px;
+    font-size: large;
+    background-color: gray;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.download
+{
+    color: white;
+    font-weight: bold;
+    background-color: darkgray;
+    font-family: Arial, Helvetica, sans-serif;
+
 }

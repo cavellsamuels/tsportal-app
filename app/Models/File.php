@@ -9,7 +9,10 @@ class File extends Model
 {
     use HasFactory;
 
-    // protected $guard = 'teacher';
-
     protected $guarded = [];
+
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'file_users');
+    }
 }

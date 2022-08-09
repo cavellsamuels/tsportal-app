@@ -17,17 +17,13 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $request->authenticate();
-
         $request->session()->regenerate();
-
         $currentUserId = Auth::user()->role_id;
 
         if ($currentUserId == 1) {
-            Auth::guard('admin')->attempt($request->only('email', 'password'));
+            Auth::guard('student')->attempt($request->only('email', 'password'));
         } elseif ($currentUserId == 2) {
             Auth::guard('teacher')->attempt($request->only('email', 'password'));
-        } elseif ($currentUserId == 3) {
-            Auth::guard('student')->attempt($request->only('email', 'password'));
         }
 
         return redirect()->route('dashboard');
@@ -38,7 +34,6 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');

@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
-        </h2>
+        </h2> --}}
     </x-slot>
 
     <head>
@@ -10,46 +10,24 @@
         <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
     </head>
 
-    @auth('admin')
-
-        <head>
-            <title>Admin Dashboard</title>
-            <style></style>
-        </head>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-6 offset-3">
-                    <h1 class="text-center m-5">Admin Dashboard</h1>
-                    @if (\Session::has('error'))
-                        <div class="alert alert-danger">{{ \Session::get('error') }}</div>
-                    @endif
-
-                    <form method="POST" action="">
-                        <div class="form-control"> ADMIN CONTENT </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    @endauth
-
     @auth('teacher')
 
         <head>
-            <title>Teacher Dashboard</title>
+            <title> Teacher Dashboard </title>
             <style></style>
         </head>
 
         <body>
-            <div class="container">
+            <div class="container bg-white mt-4">
                 <div class="row">
-                    <div class="col-6 offset-3">
-                        <h1 class="text-center m-5">Teacher Dashboard</h1>
+                    <div>
+                        <h1 class="text-center m-5 font-bold underline">Teacher Dashboard</h1>
+
                         @if (\Session::has('error'))
                             <div class="alert alert-danger">{{ \Session::get('error') }}</div>
                         @endif
 
-                        <form method="POST" action="{{ route('files.upload') }}">
+                        <form method="POST" action="{{ route('file.upload') }}" enctype="multipart/form-data">
                             @csrf
 
                             <select class="form-control" name="studentname" id="">
@@ -61,11 +39,11 @@
 
                             <br><br>
 
-                            <input class="form-control mb-5" type="file" name="file">
+                            <input class="form-control mb-5" value="{{ $file->id }}" type="file" name="file"
+                                class="file">
 
                             <button class="assignButton" type="submit"> Assign </button>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -79,40 +57,42 @@
             <style></style>
         </head>
 
-
-        <div class="container">
-            <div class="row">
-                <div class="col-6 offset-3">
-                    <h1 class="text-center m-5">Student Dashboard</h1>
-
-                    @if (\Session::has('error'))
+        <body>
+            
+            <div class="container bg-white mt-4">
+                <div class="row">
+                    <div class="">
+                        <h1 class="text-center m-5 underline font-bold">Student Dashboard</h1>
+                        
+                        @if (\Session::has('error'))
                         <div class="alert alert-danger">{{ \Session::get('error') }}</div>
-                    @endif
-
-                    <table>
-                        <th class="pr-10">File</th>
-                        <th class="pr-10">Assigned By</th>
-                        <th class="pr-10">Comment</th>
-                        <th>Download</th>
-                        <tr>
-                            {{-- @foreach ($files as $file)
-                            <td> {{ $file->name }}</td>
-                            <td> {{ $file->assigned }}</td>
-                            <td> {{ $file->comment }}</td>
-                            <td> <button> Download </button> </td>
-                            @endforeach --}}
-
-                            <td> FILENAME </td>
-                            <td> ASSIGNED BY </td>
-                            <td> COMMENT </td>
-                            <td><button> Download </button></td>
-
-
+                        @endif
+                        
+                        
+                        <table>
+                            <tr>
+                            <th >File</th>
+                            <th >Assigned By</th>
+                            <th></th>
                         </tr>
+                        
+                        @foreach (auth()->user()->files as $file)
+                        @csrf
+                        
+                        <form action="{{ route('file.download', [$file->id]) }}">
+                            <tr>
+                                <td>{{ $file->name }} </td>
+                                {{-- <td>{{ $teacherName = (App\Models\User->id == $file->uploaded_by)->get(first_name)}}</td> --}}
+                                <td> <button class="download p-1 "> Download </button> </td>
+                            </tr>
+                        </form>
+                        @endforeach
                     </table>
                 </div>
             </div>
         </div>
-    @endauth
-
-</x-app-layout>
+        @endauth
+    </body>
+        
+    </x-app-layout>
+    
