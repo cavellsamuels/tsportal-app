@@ -12,6 +12,6 @@ class FileUser extends Model
     protected $fillable =
     [
         'user_id',
-        'file_id'
+        'file_id',
     ];
 }

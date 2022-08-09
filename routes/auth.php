@@ -41,14 +41,14 @@ Route::middleware('auth')->group(function () {
                 ->name('logout');
 });
 
-    // Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
+// Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
     //             ->name('password.request');
 
-    // Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+// Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
     //             ->name('password.email');
 
-    // Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
+// Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
     //             ->name('password.reset');
 
-    // Route::post('reset-password', [NewPasswordController::class, 'store'])
+// Route::post('reset-password', [NewPasswordController::class, 'store'])
     //             ->name('password.update');

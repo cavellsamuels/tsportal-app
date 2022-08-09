@@ -12,6 +12,15 @@
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
+            <div class="mt-4 w-full">
+                <select class="form-control" id="title" name="title" placeholder="User Title">
+                    <option value="{{ App\Models\User::MR }}"> Mr </option>
+                    <option value="{{ App\Models\User::MRS }}"> Mrs </option>
+                    <option value="{{ App\Models\User::MASTER }}"> Ms </option>
+                    <option value="{{ App\Models\User::MISS }}"> Miss </option>
+                </select>
+            </div>
+
             <div class="mt-4">
                 <x-label for="firstname" :value="__('First Name')" />
 
@@ -52,8 +61,8 @@
 
             <div class="mt-4 w-full">
                 <select class="form-control" id="role" name="role" placeholder="User Role">
-                    <option value="1"> Student </option>
-                    <option value="2"> Teacher </option>
+                    <option value="{{ App\Models\User::STUDENT }}"> Student </option>
+                    <option value="{{ App\Models\User::TEACHER }}"> Teacher </option>
                 </select>
             </div>
 

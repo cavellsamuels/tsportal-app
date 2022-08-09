@@ -18,18 +18,13 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
         $request->session()->regenerate();
-
         $currentUserId = Auth::user()->role_id;
-        
-        if ($currentUserId == 1) 
-        {
-            Auth::guard('student')->attempt($request->only('email', 'password'));
-        }
 
-        elseif ($currentUserId == 2) 
-        {
+        if ($currentUserId == 1) {
+            Auth::guard('student')->attempt($request->only('email', 'password'));
+        } elseif ($currentUserId == 2) {
             Auth::guard('teacher')->attempt($request->only('email', 'password'));
-        } 
+        }
 
         return redirect()->route('dashboard');
     }

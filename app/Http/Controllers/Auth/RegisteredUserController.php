@@ -19,6 +19,7 @@ class RegisteredUserController extends Controller
     public function store(RegisterUserRequest $request)
     {
         $user = User::create([
+            'title' => $request->title,
             'first_name' => $request->firstname,
             'last_name' => $request->lastname,
             'email' => $request->email,
@@ -27,7 +28,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $inputtedRole = $request->role;
-        
+
         if ($inputtedRole == 1) {
             Auth::guard('student')->attempt($request->only('email', 'password'));
         }
